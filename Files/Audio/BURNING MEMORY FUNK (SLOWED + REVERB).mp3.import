@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://4gc7kdw0ucp4"
+path="res://.godot/imported/BURNING MEMORY FUNK (SLOWED + REVERB).mp3-70397bd222c375b53a1a498f7bbea7df.mp3str"
+
+[deps]
+
+source_file="res://Files/Audio/BURNING MEMORY FUNK (SLOWED + REVERB).mp3"
+dest_files=["res://.godot/imported/BURNING MEMORY FUNK (SLOWED + REVERB).mp3-70397bd222c375b53a1a498f7bbea7df.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

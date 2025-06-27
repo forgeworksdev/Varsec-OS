@@ -38,7 +38,7 @@ func _ready() -> void:
 	vfx_layer.show()
 	Core.change_background_music()
 	Core.play_secondary_track("uid://dyjjw70dem80q")
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sfx_1"), 0)
+
 
 #region Callable features
 
@@ -55,13 +55,13 @@ func spawn_window(window_path: StringName, window_pos: Vector2):
 	else:
 		print("Error: No Program Storage node specified!")
 
-func spawn_popup(popup_text: StringName, popup_name: StringName, has_pwd_query: bool):
+func spawn_popup(popup_title: StringName, popup_text: StringName, has_pwd_query: bool):
 	if popup_storage_layer:
 		var popup: popup_window_vos = load(Core.popup_scene_uid).instantiate()
 		popup.is_instance_type = true
 		popup.can_close = true
 		popup.show()
-		popup.window_name_label.text = popup_name
+		popup.window_name_label.text = popup_title
 		popup.popup_text_label.text = popup_text
 		popup.has_pwd_query = has_pwd_query
 		popup_storage_layer.add_child(popup)
@@ -89,18 +89,20 @@ func change_panel_colors(color: Color):
 	panel_stylebox_cache.bg_color = color
 	system_panel.add_theme_stylebox_override("panel", panel_stylebox_cache)
 
-func change_wallpaper(path: StringName, is_3d: bool = false, path_to_3d_scene: StringName = &"uid://ctm4fp4tnsvm6"):
-	if not path.is_empty():
-		background.texture = load(path)
-		background.show()
-	else:
-		print("Failed to load image: " + path + " Loading default.")
-		background.texture = default_background_image
-	if is_3d:
+func change_wallpaper(path: StringName, is_3d: bool, path_to_3d_scene):
+	if is_3d == true:
 		background.hide()
 		for child in _3d_background.get_node("3DBackrgoundViewport").get_children():
 			child.queue_free()
 		_3d_background.get_node("3DBackrgoundViewport").add_child(load(path_to_3d_scene).instantiate())
+	else:
+		background.show()
+		#if !load(path):
+			#print("Failed to load image: " + path + " Loading default.")
+			#background.texture = default_background_image
+			#return
+		background.texture = load(path)
+
 
 func change_vfx_shader(path_to_shader: StringName = &"uid://c7vnw4dnik7g3"):
 	if !path_to_shader.is_empty():

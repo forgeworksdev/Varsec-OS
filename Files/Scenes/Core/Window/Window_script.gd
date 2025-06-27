@@ -28,14 +28,18 @@ class_name window_vos extends NinePatchRect
 @export var is_instance_type: bool
 @export var has_max_size: bool
 @export var max_size: Vector2
+@export var custom_id:float
 
 var id: int
 
 signal closed
 
 func _init() -> void:
+	#id = int(str(custom_id) + str(Core.generate_program_id()))
+	#print(id)
 	id = Core.generate_program_id()
-	Core.viewport.size_changed.connect(_on_viewport_size_changed)
+	if Core.viewport:
+		Core.viewport.size_changed.connect(_on_viewport_size_changed)
 	self.custom_minimum_size = Vector2(258, 144)
 	self.texture = load("uid://u37075llycfy")
 	self.region_rect = Rect2(0,0, 150, 150)

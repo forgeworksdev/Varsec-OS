@@ -86,6 +86,7 @@ signal hide_billboards_signal
 signal send_notification_signal(content: String)
 signal clear_popups
 signal clear_windows
+
 signal event_started_signal
 signal event_ended_signal
 
@@ -159,9 +160,8 @@ func send_notification(content: String = "Test notification"):
 		emit_signal("send_notification_signal", content)
 
 func change_wallpaper(path_to_texture: StringName = default_background_uid, is_3d: bool = false, path_to_3d_scene: StringName = default_3d_scene_uid):
-	if !path_to_texture.is_empty():
-		emit_signal("change_wallpaper_signal", path_to_texture, is_3d, path_to_3d_scene)
-		print("CoreCHANGEWALLPAPER")
+	emit_signal("change_wallpaper_signal", path_to_texture, is_3d, path_to_3d_scene)
+	print("CoreCHANGEWALLPAPER")
 
 func change_vfx_shader(path_to_shader: StringName = crt_shader_uid):
 	if !path_to_shader.is_empty():
@@ -206,6 +206,9 @@ func switch_background_music():
 func create_window(window_name: StringName = &"Lorem"):
 	var window = window_vos.new()
 
+func create_folder():
+	pass
+
 func open_program(path_to_window: StringName = &"uid://itth0n1hb0dj", window_position: Vector2 = Vector2(0, 80)):
 	if !path_to_window.is_empty():
 		emit_signal("spawn_window_signal", path_to_window, window_position)
@@ -247,6 +250,7 @@ func stop_event():
 	change_vfx_shader()
 	change_wallpaper()
 	stop_secondary_track()
+	clear_popups.emit()
 	is_in_event = false
 	print("CoreSTOPEVENT")
 
@@ -260,8 +264,8 @@ func _input(_event: InputEvent) -> void:
 			stop_event()
 			clear_popups.emit()
 		else:
-			start_event("uid://cwuwsinbkkmii", "uid://cmcpsmaw4gejf", "uid://bqnj3h6bpdg57", Color(27, 33, 48, 255), true)
-			spawn_popup("Insert passcode", "", true)
+			start_event("uid://cwuwsinbkkmii", "", "uid://bqnj3h6bpdg57", Color(27, 33, 48, 255), true)
+			spawn_popup("Authenticator", "Insira a senha", true)
 			clear_windows.emit() # TODO Revamp this based on opened_programs list
 			print("Triggered Backspace log")
 
@@ -311,7 +315,9 @@ func fade_out_secondary_sfx(bus_name: String, target_volume, fade_duration):
 	_bus_name = bus_name
 	var current_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(bus_name))
 	var tween = create_tween()
-	tween.tween_method(Callable(self, "_set_bus_volume"), current_volume, target_volume, fade_duration)
+	await tween.tween_method(Callable(self, "_set_bus_volume"), current_volume, target_volume, fade_duration).finished
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(_bus_name), 0)
+	print("Reset!")
 
 func _set_bus_volume(volume):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(_bus_name), volume)

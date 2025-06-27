@@ -45,7 +45,6 @@ func _input(event: InputEvent) -> void:
 		Core.play_secondary_track("uid://wrlc801ukxib")
 
 func start_splashscreen() -> void:
-	print("A")
 	for timer in timers:
 		timer.connect("timeout", switch_screen)
 		timer.one_shot = true
@@ -73,8 +72,8 @@ func switch_screen() -> void:
 		transition_screen(current_screen, false)
 		await interpolation_complete
 		change_scene()
-	if times_switched +1 >= screens.size():
-		Core.fade_out_secondary_sfx("sfx_1", -80, 9)
+	if times_switched + 2 == screens.size():
+		Core.fade_out_secondary_sfx("sfx_1", -50, 6)
 
 func transition_screen(target: Control, fade_in: bool = true) -> void:
 	var tween: Tween = target.create_tween()

@@ -1,3 +1,5 @@
+ColorRect
+Button
 VBoxContainer
 Node
 MarginContainer
@@ -9,6 +11,5 @@ TextureRect
 CenterContainer
 ContextMenu_vos
 HSeparator
-Button
 PanelContainer
 NinePatchRect

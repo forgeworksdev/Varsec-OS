@@ -68,8 +68,9 @@ func select():
 	panel.self_modulate.a = 1
 	filename_label.label_settings.font_color = default_filename_color_secondary
 	timer.start()
-	audioplayer.play()
-	print(str(filename_label.text) + " Was is_selected! Ermager :O")
+	if Core.music_status:
+		audioplayer.play()
+	#print(str(filename_label.text) + " Was is_selected! Ermager :O")
 
 func deselect():
 	if text_icon:

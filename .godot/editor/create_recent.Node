@@ -1,3 +1,4 @@
+AudioStreamPlayer
 ColorRect
 Button
 VBoxContainer
@@ -12,4 +13,3 @@ CenterContainer
 ContextMenu_vos
 HSeparator
 PanelContainer
-NinePatchRect

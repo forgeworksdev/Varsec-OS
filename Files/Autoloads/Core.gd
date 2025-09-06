@@ -112,7 +112,7 @@ const desktop_uid := &"uid://qs2b04s0sqis"
 
 var opened_programs: Array = []
 var program_ids: Array = []
-var viewport_size: Vector2 = Vector2(1152, 648)
+var viewport_size: Vector2
 var panel_height: int = 80
 
 @onready var viewport = get_viewport()
@@ -122,6 +122,7 @@ func hide_billboards(value):
 	hide_billboards_signal.emit()
 
 func _ready() -> void:
+	viewport_size = get_viewport().size
 	viewport.size_changed.connect(_on_viewport_size_changed)
 	audioplayer_primary.name = "AudioPlayer_primary"
 	add_child(audioplayer_primary)
@@ -129,7 +130,7 @@ func _ready() -> void:
 	add_child(audioplayer_secondary)
 	audioplayer_secondary.bus = "sfx_1"
 
-func generate_program_id():
+func generate_program_id(): #FIXME this is ass these aren't unique IDs
 	var new_id: int
 	while true:
 		new_id = randi()
@@ -183,7 +184,7 @@ func change_background_music(audio: StringName = default_audio_uid):
 
 func play_secondary_track(path_to_audio: StringName = default_secondary_track_uid, loop: bool = false):
 	stop_secondary_track()
-	if !path_to_audio.is_empty():
+	if !path_to_audio.is_empty() and music_status:
 		audioplayer_secondary.stream = load(path_to_audio)
 		audioplayer_secondary.play()
 		if audioplayer_secondary.stream:

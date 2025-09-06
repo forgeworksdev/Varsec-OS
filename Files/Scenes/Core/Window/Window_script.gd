@@ -127,8 +127,9 @@ func restore_window(target: window_vos, unmaxed_position: Vector2, unmaxed_size:
 
 func close_window():
 	Core.opened_programs.erase(self)
-	audioplayer.play()
-	await audioplayer.finished
+	if Core.music_status:
+		audioplayer.play()
+	#await audioplayer.finished
 	if can_close:
 		if is_instance_type:
 			closed.emit()

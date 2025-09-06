@@ -81,7 +81,8 @@ func verify(user_input: String):
 			incorrect_message.visible = true
 			timer.start()
 			pwd_input_box.text = ""
-			audioplayer.play()
+			if Core.music_status:
+				audioplayer.play()
 
 func _on_timer_timeout() -> void:
 	incorrect_message.hide()

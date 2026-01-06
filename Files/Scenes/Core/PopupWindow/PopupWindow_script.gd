@@ -20,7 +20,8 @@ func set_pwd_input_box(value):
 func set_has_pwd_query(value):
 	has_pwd_query = value
 	if has_pwd_query:
-		pwd_input_box.show()
+		#pwd_input_box.show()
+		pass
 	else:
 		pwd_input_box.hide()
 

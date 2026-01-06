@@ -1,3 +1,4 @@
+Control
 AudioStreamPlayer
 ColorRect
 Button
@@ -5,11 +6,9 @@ VBoxContainer
 Node
 MarginContainer
 Timer
-Control
 Panel
 CanvasLayer
 TextureRect
 CenterContainer
 ContextMenu_vos
 HSeparator
-PanelContainer

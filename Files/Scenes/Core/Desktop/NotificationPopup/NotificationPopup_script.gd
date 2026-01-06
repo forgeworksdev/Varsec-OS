@@ -11,7 +11,7 @@ func display_notification(text: String):
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property(self,"position:y", 100, 1).finished
+	await tween.tween_property(self,"position:y", 100, .5).finished
 	timer.start()
 
 
@@ -19,5 +19,5 @@ func _on_timer_timeout() -> void:
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property(self,"position:y", -55, 1).finished
+	await tween.tween_property(self,"position:y", -55, .5).finished
 	label.text = ""
